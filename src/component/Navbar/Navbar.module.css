@@ -1,0 +1,41 @@
+.nav_bg{
+    background-color: #1d1d1d !important;
+    position: fixed !important;
+    top: 0px !important;
+}
+.movie_hover{
+    position: relative;
+}
+
+.movie_hover_items{
+display: none ;
+position: absolute;
+background-color: black;
+color: #FFF;
+left: 0px;
+width: 150px;
+}
+.movie_hover_items button{
+    font-size: 14px;
+    width: 100%;
+   
+}
+.movie_hover_items button:hover{
+background-color:  #c0392b;
+
+}
+.arrow_hover{
+  opacity: 0;
+}
+.arrow_hover:hover{
+    color:   #c0392b !important;
+}
+
+@media screen and (max-width: 768px){
+    .movie_hover_items{
+        position: unset;
+    }
+    .arrow_hover{
+        opacity: 1;
+    }
+}
