@@ -331,9 +331,9 @@ export default class Home extends Component {
                                     <button onClick={() => { this.setState({ item: value.title }); this.getYotubeVideo(value.media_type, value.id) }} key={index} className="btn w-100 p-0 m-0 overflow-hidden" onMouseEnter={() => { this.changeBG(value.backdrop_path) }} onTouchMove={() => { this.changeBG(value.backdrop_path) }}>
                                         <div className="w-100 p-0 m-0 rounded position-relative overflow-hidden">
                                             <div className={` position-relative d-flex justify-content-center align-items-center overflow-hidden ${HomeStyle.img_hover}`}>
-                                                <img className="w-100 h-100 rounded overflow-hidden" src={`https:image.tmdb.org/t/p/original${value.backdrop_path}`} alt="img" />
+                                                <img className="w-100 h-100 rounded overflow-hidden" src="https:image.tmdb.org/t/p/original/mGVrXeIjyecj6TKmwPVpHlscEmw.jpg" alt="img" />
                                                 <FaPlay className={`${HomeStyle.img_icon}`}></FaPlay>
-                                                {console.log(`https:image.tmdb.org/t/p/original${value.backdrop_path}`)}
+                                                {console.log(index + `https:image.tmdb.org/t/p/original${value.backdrop_path}`)}
                                             </div>
                                             <h6 className="text-white font-weight-bold">{value.title} {value.name}</h6>
                                         </div>
