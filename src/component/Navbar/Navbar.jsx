@@ -69,7 +69,7 @@ export default class Navbar extends Component {
                                         <NavLink to={`/details/${value.title}`} key={index} className=" border rounded my-1 p-1 main_colorHover  row   ">
                                             <button className="btn d-flex align-items-center" onClick={() => { this.props.test(value); this.props.mediaType('movie'); ; this.props.getpath(value.title );this.state.Search = []; }}>
                                                 <div className="w-7">
-                                                    <img src={'https:image.tmdb.org/t/p/original' + value.poster_path} className="w-100 rounded" />
+                                                    <img src={'https://image.tmdb.org/t/p/original' + value.poster_path} className="w-100 rounded" />
                                                 </div>
                                                 <div className="col-10 d-flex align-items-center font-weight-bold text-white">
                                                     <h6>{value.name} {value.title}</h6>
