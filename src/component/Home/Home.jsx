@@ -5,7 +5,7 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 import HomeStyle from './Home.module.css'
 import { FaStar, FaCalendarDay, FaPlay, FaTimesCircle, FaFacebookF, FaLinkedinIn, FaInstagram } from 'react-icons/fa'
 import axios from 'axios'
-import { NavLink, Route } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import ReactPlayer from "react-player";
 import $ from 'jquery'
 export default class Home extends Component {
@@ -31,8 +31,8 @@ export default class Home extends Component {
     }
     componentDidMount() {
         this.getTrending('all', 'day');
-        this.getTrending('movies');
-        this.getTrending('tv');
+        this.getTrending('movie', 'day');
+        this.getTrending('tv', 'day');
         this.getPopular('tv', 'popularTv');
         this.getPopular('movie', 'popularMovie');
         this.getTrendingCarsul('all', 'day');
@@ -54,9 +54,9 @@ export default class Home extends Component {
     }
     setPopular = async (type) => {
 
-        if (type == "tv") {
+        if (type === "tv") {
             this.setState({ path: "tv", roundom: this.state.popularTv });
-        } else if (type == "movies") {
+        } else if (type === "movies") {
             this.setState({ path: "movie", roundom: this.state.popularMovie });
 
         }
@@ -74,35 +74,35 @@ export default class Home extends Component {
     }
     changeBG = (bg) => {
         $('#tarilarBG').css('background-image', `url(https://image.tmdb.org/t/p/original${bg})`);
-        console.log(bg);
     }
     render() {
 
         return (
             <>
+                {/* header section */}
                 <OwlCarousel className='owl-theme' loop width="100%" nav items="1" autoplay dotsContainer="false" navContainer="false"  >
                     <section className={`${HomeStyle.header} `}>
-                        {this.state.all.slice(3, 4).map((value, index) => {
+                        {this.state.all.slice(3, 4)?.map((value, index) => {
                             return (
                                 <div key={index} className="w-100 h-100">
-                                    <div className="h-100" style={{ backgroundImage: `url(${'https://image.tmdb.org/t/p/original' + value.backdrop_path})`, backgroundSize: `cover`, backgroundPosition: `center center` }}></div>
+                                    <div className="h-100" style={{ backgroundImage: `url(${'https://image.tmdb.org/t/p/original' + value?.backdrop_path})`, backgroundSize: `cover`, backgroundPosition: `center center` }}></div>
                                 </div>
                             )
                         })}
                         <div className="layer">
-                            {this.state.all.slice(3, 4).map((value, index) => {
+                            {this.state.all.slice(3, 4)?.map((value, index) => {
                                 return (
                                     <div key={index}>
                                         <div className="h-100 header_caption  container-fluid">
-                                            <h1 className="main_color font-weight-bold top_down"> {value.name} {value.title}</h1>
+                                            <h1 className="main_color font-weight-bold top_down"> {value?.name} {value?.title}</h1>
                                             <div className={`container-fluid row top_down delay_2`}>
                                                 <div className="d-flex ">
                                                     <FaStar className={`${HomeStyle.icon}  mr-1`} />
-                                                    <p className="mr-3">{value.vote_average}</p>
+                                                    <p className="mr-3">{value?.vote_average}</p>
                                                 </div>
                                                 <div className="d-flex">
                                                     <FaCalendarDay className={`${HomeStyle.icon}  mr-1`} />
-                                                    <p className="ml-1 ">{value.first_air_date}</p>
+                                                    <p className="ml-1 ">{value?.first_air_date}</p>
                                                 </div>
 
                                             </div>
@@ -110,8 +110,8 @@ export default class Home extends Component {
 
                                             <p className="w-50 top_down delay_4 text-muted">{value.overview}</p>
                                             <div className="top_down delay_6">
-                                                <NavLink to={`/details/${value.title}`}>
-                                                    <button id={value.id} name={this.state.path} className="btn btn-hover" onClick={() => { this.props.test(value); this.props.mediaType(value.media_type); this.props.getpath(value.title); }}> <span name={this.state.path} id={value.id}>SEE MORE</span></button>
+                                                <NavLink to={`/details/${value?.title}`}>
+                                                    <button id={value?.id} name={this.state.path} className="btn btn-hover" onClick={() => { this.props.test(value); this.props.mediaType(value?.media_type); this.props.getpath(value?.title); }}> <span name={this.state.path} id={value?.id}>SEE MORE</span></button>
                                                 </NavLink>
                                             </div>
                                         </div>
@@ -123,36 +123,36 @@ export default class Home extends Component {
                     </section>
 
                     <section className={`${HomeStyle.header} `}>
-                        {this.state.all.slice(0, 1).map((value, index) => {
+                        {this.state.all?.slice(0, 1)?.map((value, index) => {
                             return (
                                 <div key={index} className="w-100 h-100">
-                                    <div className="h-100" style={{ backgroundImage: `url(${'https://image.tmdb.org/t/p/original' + value.backdrop_path})`, backgroundSize: `cover`, backgroundPosition: `center center` }}></div>
+                                    <div className="h-100" style={{ backgroundImage: `url(${'https://image.tmdb.org/t/p/original' + value?.backdrop_path})`, backgroundSize: `cover`, backgroundPosition: `center center` }}></div>
                                 </div>
                             )
                         })}
                         <div className="layer">
-                            {this.state.all.slice(0, 1).map((value, index) => {
+                            {this.state.all?.slice(0, 1)?.map((value, index) => {
                                 return (
                                     <div key={index}>
                                         <div className="h-100 header_caption  container-fluid">
-                                            <h1 className="main_color font-weight-bold top_down"> {value.name} {value.title}</h1>
+                                            <h1 className="main_color font-weight-bold top_down"> {value?.name} {value?.title}</h1>
                                             <div className={`container-fluid row top_down delay_2`}>
                                                 <div className="d-flex ">
                                                     <FaStar className={`${HomeStyle.icon}  mr-1`} />
-                                                    <p className="mr-3">{value.vote_average}</p>
+                                                    <p className="mr-3">{value?.vote_average}</p>
                                                 </div>
                                                 <div className="d-flex">
                                                     <FaCalendarDay className={`${HomeStyle.icon}  mr-1`} />
-                                                    <p className="ml-1">{value.first_air_date}</p>
+                                                    <p className="ml-1">{value?.first_air_date}</p>
                                                 </div>
 
                                             </div>
 
 
-                                            <p className="w-50 top_down delay_4 text-muted">{value.overview}</p>
+                                            <p className="w-50 top_down delay_4 text-muted">{value?.overview}</p>
                                             <div className="top_down delay_6">
-                                                <NavLink to={`/details/${value.title}`}>
-                                                    <button id={value.id} name={this.state.path} className="btn btn-hover" onClick={() => { this.props.test(value); this.props.mediaType(value.media_type); this.props.getpath(value.title); }}> <span name={this.state.path} id={value.id}>SEE MORE</span></button>
+                                                <NavLink to={`/details/${value?.title}`}>
+                                                    <button id={value?.id} name={this.state.path} className="btn btn-hover" onClick={() => { this.props.test(value); this.props.mediaType(value?.media_type); this.props.getpath(value?.title); }}> <span name={this.state.path} id={value.id}>SEE MORE</span></button>
                                                 </NavLink>
                                             </div>
                                         </div>
@@ -166,37 +166,37 @@ export default class Home extends Component {
 
 
                     <section className={`${HomeStyle.header} `}>
-                        {this.state.all.slice(2, 3).map((value, index) => {
+                        {this.state.all?.slice(2, 3)?.map((value, index) => {
                             return (
                                 <div key={index} className="w-100 h-100">
-                                    <div className="h-100" style={{ backgroundImage: `url(${'https://image.tmdb.org/t/p/original' + value.backdrop_path})`, backgroundSize: `cover`, backgroundPosition: `center center` }}></div>
+                                    <div className="h-100" style={{ backgroundImage: `url(${'https://image.tmdb.org/t/p/original' + value?.backdrop_path})`, backgroundSize: `cover`, backgroundPosition: `center center` }}></div>
 
                                 </div>
                             )
                         })}
                         <div className="layer">
-                            {this.state.all.slice(2, 3).map((value, index) => {
+                            {this.state.all?.slice(2, 3)?.map((value, index) => {
                                 return (
                                     <div key={index}>
                                         <div className="h-100 header_caption  container-fluid">
-                                            <h1 className="main_color font-weight-bold top_down"> {value.name} {value.title}</h1>
+                                            <h1 className="main_color font-weight-bold top_down"> {value?.name} {value?.title}</h1>
                                             <div className={`container-fluid row top_down delay_2`}>
                                                 <div className="d-flex ">
                                                     <FaStar className={`${HomeStyle.icon}  mr-1`} />
-                                                    <p className="mr-3">{value.vote_average}</p>
+                                                    <p className="mr-3">{value?.vote_average}</p>
                                                 </div>
                                                 <div className="d-flex">
                                                     <FaCalendarDay className={`${HomeStyle.icon}  mr-1`} />
-                                                    <p className="ml-1">{value.first_air_date}</p>
+                                                    <p className="ml-1">{value?.first_air_date}</p>
                                                 </div>
 
                                             </div>
 
 
-                                            <p className="w-50 top_down delay_4 text-muted">{value.overview}</p>
+                                            <p className="w-50 top_down delay_4 text-muted">{value?.overview}</p>
                                             <div className="top_down delay_6">
-                                                <NavLink to={`/details/${value.title}`}>
-                                                    <button id={value.id} name={this.state.path} className="btn btn-hover" onClick={() => { this.props.test(value); this.props.mediaType(value.media_type); this.props.getpath(value.title); }}> <span name={this.state.path} id={value.id}>SEE MORE</span></button>
+                                                <NavLink to={`/details/${value?.title}`}>
+                                                    <button id={value?.id} name={this.state.path} className="btn btn-hover" onClick={() => { this.props.test(value); this.props.mediaType(value?.media_type); this.props.getpath(value?.title); }}> <span name={this.state.path} id={value?.id}>SEE MORE</span></button>
                                                 </NavLink>
                                             </div>
                                         </div>
@@ -208,36 +208,36 @@ export default class Home extends Component {
                     </section>
 
                     <section className={`${HomeStyle.header} `}>
-                        {this.state.all.slice(4, 5).map((value, index) => {
+                        {this.state.all?.slice(4, 5)?.map((value, index) => {
                             return (
                                 <div key={index} className="w-100 h-100">
-                                    <div className="h-100" style={{ backgroundImage: `url(${'https://image.tmdb.org/t/p/original' + value.backdrop_path})`, backgroundSize: `cover`, backgroundPosition: `center center` }}></div>
+                                    <div className="h-100" style={{ backgroundImage: `url(${'https://image.tmdb.org/t/p/original' + value?.backdrop_path})`, backgroundSize: `cover`, backgroundPosition: `center center` }}></div>
                                 </div>
                             )
                         })}
                         <div className="layer">
-                            {this.state.all.slice(4, 5).map((value, index) => {
+                            {this.state.all?.slice(4, 5)?.map((value, index) => {
                                 return (
                                     <div key={index}>
                                         <div className="h-100 header_caption  container-fluid">
-                                            <h1 className="main_color font-weight-bold top_down"> {value.name} {value.title}</h1>
+                                            <h1 className="main_color font-weight-bold top_down"> {value?.name} {value?.title}</h1>
                                             <div className={`container-fluid row top_down delay_2`}>
                                                 <div className="d-flex ">
                                                     <FaStar className={`${HomeStyle.icon}  mr-1`} />
-                                                    <p className="mr-3">{value.vote_average}</p>
+                                                    <p className="mr-3">{value?.vote_average}</p>
                                                 </div>
                                                 <div className="d-flex">
                                                     <FaCalendarDay className={`${HomeStyle.icon}  mr-1`} />
-                                                    <p className="ml-1">{value.first_air_date}</p>
+                                                    <p className="ml-1">{value?.first_air_date}</p>
                                                 </div>
 
                                             </div>
 
 
-                                            <p className="w-50 top_down delay_4 text-muted">{value.overview}</p>
+                                            <p className="w-50 top_down delay_4 text-muted">{value?.overview}</p>
                                             <div className="top_down delay_6">
-                                                <NavLink to={`/details/${value.title}`}>
-                                                    <button id={value.id} name={this.state.path} className="btn btn-hover" onClick={() => { this.props.test(value); this.props.mediaType(value.media_type); this.props.getpath(value.title); }}> <span name={this.state.path} id={value.id}>SEE MORE</span></button>
+                                                <NavLink to={`/details/${value?.title}`}>
+                                                    <button id={value?.id} name={this.state.path} className="btn btn-hover" onClick={() => { this.props.test(value); this.props.mediaType(value?.media_type); this.props.getpath(value?.title); }}> <span name={this.state.path} id={value?.id}>SEE MORE</span></button>
                                                 </NavLink>
                                             </div>
                                         </div>
@@ -251,7 +251,7 @@ export default class Home extends Component {
 
 
                 </OwlCarousel>
-
+                {/* popular section */}
                 <div className="container mt-5 ">
 
 
@@ -263,7 +263,7 @@ export default class Home extends Component {
 
                                 <div className="btn-group btn-group-toggle " data-toggle="buttons">
                                     <label className="btn  active" >
-                                        <input onClick={() => { this.setPopular('tv') }} type="radio" name="options" id="tv" checked /> ON TV
+                                        <input onClick={() => { this.setPopular('tv') }} type="radio" name="options" id="tv" defaultChecked /> ON TV
                                     </label>
                                     <label className="btn">
                                         <input onClick={() => { this.setPopular('movies') }} type="radio" name="options" id="movies" />IN THEATERS
@@ -289,7 +289,7 @@ export default class Home extends Component {
                                         <button onClick={() => { this.props.test(value); this.props.mediaType(this.state.path); this.props.getpath(value.title); }} className="bg-transparent border-0" >
                                             <div className="item position-relative">
                                                 <div className="popular-img position-relative overflow-hidden">
-                                                    <img id={value.id} name={this.state.path} className="w-100 vh-40 overflow-hidden" src={'https://image.tmdb.org/t/p/original' + value.poster_path} alt="" />
+                                                    <img id={value.id} name={this.state.path} className="w-100 vh-40 overflow-hidden" src={'https://image.tmdb.org/t/p/original' + value.poster_path} alt="img" />
                                                     <span className={`vote`}>
                                                         <div className="position-relative d-flex justify-content-center align-items-center">
                                                             <FaStar id={value.id} name={this.state.path} className={`vote_icon`} />
@@ -317,9 +317,7 @@ export default class Home extends Component {
 
                 </div>
 
-
-
-
+                {/* tarilar section  */}
                 <div id="tarilarBG" className=" my-5 vh-50  d-flex align-items-center flex-column justify-content-center smooth"
                     style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${this.state.trailerbacgd})`, backgroundSize: "cover", }}
                 >
@@ -333,7 +331,7 @@ export default class Home extends Component {
                                     <button onClick={() => { this.setState({ item: value.title }); this.getYotubeVideo(value.media_type, value.id) }} key={index} className="btn w-100 p-0 m-0 overflow-hidden" onMouseEnter={() => { this.changeBG(value.backdrop_path) }} onTouchMove={() => { this.changeBG(value.backdrop_path) }}>
                                         <div className="w-100 p-0 m-0 rounded position-relative overflow-hidden">
                                             <div className={` position-relative d-flex justify-content-center align-items-center overflow-hidden ${HomeStyle.img_hover}`}>
-                                                <img className="w-100 h-100 rounded overflow-hidden" src={'https:image.tmdb.org/t/p/original' + value.backdrop_path} />
+                                                <img className="w-100 h-100 rounded overflow-hidden" src={`https:image.tmdb.org/t/p/original${value.backdrop_path}`} alt="img" />
                                                 <FaPlay className={`${HomeStyle.img_icon}`}></FaPlay>
                                             </div>
                                             <h6 className="text-white font-weight-bold">{value.title} {value.name}</h6>
@@ -347,7 +345,7 @@ export default class Home extends Component {
 
                 </div>
 
-
+                {/* video player popup */}
                 <div className={`${HomeStyle.youtube_video}`} style={{ display: `${this.state.playVideo}` }}>
                     <div className={`text-left  m-0 p-2 ${HomeStyle.youtube_heder}`}>
                         <h4 className="m-0 p-0">{this.state.item}</h4>
@@ -365,7 +363,7 @@ export default class Home extends Component {
                     </ReactPlayer>
                 </div>
 
-
+                {/* TRENDING section */}
                 <div className="container mt-5 ">
 
 
@@ -377,7 +375,7 @@ export default class Home extends Component {
 
                                 <div className="btn-group btn-group-toggle" data-toggle="buttons">
                                     <label className="btn  active" >
-                                        <input onClick={() => { this.getTrendingCarsul('all', 'day') }} type="radio" name="options" id="tv" checked />TODAY
+                                        <input onClick={() => { this.getTrendingCarsul('all', 'day') }} type="radio" name="options" id="tv" defaultChecked />TODAY
                                     </label>
                                     <label className="btn">
                                         <input onClick={() => { this.getTrendingCarsul('all', 'week') }} type="radio" name="options" id="movies" />THIS WEEK
@@ -400,7 +398,7 @@ export default class Home extends Component {
                                         <button onClick={() => { this.props.test(value); this.props.mediaType(value.media_type); this.props.getpath(value.title); }} className="bg-transparent border-0" >
                                             <div className="item position-relative">
                                                 <div className="popular-img position-relative overflow-hidden">
-                                                    <img id={value.id} name={this.state.path} className="w-100 vh-40 overflow-hidden" src={'https://image.tmdb.org/t/p/original' + value.poster_path} alt="" />
+                                                    <img id={value.id} name={this.state.path} className="w-100 vh-40 overflow-hidden" src={'https://image.tmdb.org/t/p/original' + value.poster_path} alt="img" />
                                                     <span className={`vote`}>
                                                         <div className="position-relative d-flex justify-content-center align-items-center">
                                                             <FaStar id={value.id} name={this.state.path} className={`vote_icon`} />
@@ -426,23 +424,23 @@ export default class Home extends Component {
 
 
                 </div>
-
+                {/* footer */}
                 <footer className="mt-5 w-100">
                     <div className="container py-4">
                         <div className="row">
-                            <div class="col-md-9">
-                                <h5 class="mb-3 main_color">ABOUT ME</h5>
-                                <p className="text-muted">I am studying engineering in the software engineering department of the Egyptian Chinese University. <br />I have 4 months of experience with front-end  Web development. </p>
+                            <div className="col-md-9">
+                                <h5 className="mb-3 main_color">ABOUT ME</h5>
+                                <p className="text-muted">I am studying engineering in the software engineering department of the Egyptian Chinese University. <br />I have 4 months of experience with front-end development. </p>
                             </div>
                             <div className="col-md-3">
-                                <h5 class="mb-3 main_color">KEEP In TOUTCH </h5>
+                                <h5 className="mb-3 main_color">KEEP In TOUTCH </h5>
                                 <p className="text-muted">Phone: +01064598472</p>
                                 <p className="text-muted">E-mail: asdddghjh@gmail.com</p>
                                 <p className="text-muted">abdelrahmanabdallah9800@gmail.com</p>
                                 <div className=" d-flex justify-content-between align-items-center col-5  p-0">
-                                    <a href="https://www.facebook.com/abdelrahman.elsherif.397?_rdc=1&_rdr" target="_blank"><FaFacebookF className={`text-muted ${HomeStyle.social}`} ></FaFacebookF></a>
-                                    <a href="https://www.linkedin.com/in/abdelrahman-abdallah-85b5481ab/" target="_blank"><FaLinkedinIn className={`text-muted ${HomeStyle.social}`}></FaLinkedinIn></a>
-                                    <a href="https://www.instagram.com/abdo_code/?hl=en" target="_blank"><FaInstagram className={`text-muted ${HomeStyle.social}`}></FaInstagram></a>
+                                    <a href="https://www.facebook.com/abdelrahman.elsherif.397?_rdc=1&_rdr" target="_blank" rel="noreferrer" ><FaFacebookF className={`text-muted ${HomeStyle.social}`} ></FaFacebookF></a>
+                                    <a href="https://www.linkedin.com/in/abdelrahman-abdallah-85b5481ab/" target="_blank" rel="noreferrer" ><FaLinkedinIn className={`text-muted ${HomeStyle.social}`}></FaLinkedinIn></a>
+                                    <a href="https://www.instagram.com/abdo_code/?hl=en" target="_blank" rel="noreferrer" ><FaInstagram className={`text-muted ${HomeStyle.social}`}></FaInstagram></a>
                                 </div>
                             </div>
                         </div>
