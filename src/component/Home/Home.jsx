@@ -26,7 +26,7 @@ export default class Home extends Component {
                 1000: {
                     items: 4,
                 },
-            }, caursl: [], tv: [], movies: [], all: [], roundom: [], popularTv: [], popularMovie: [], path: "tv", trailerbacgd: '', youtubeKey: '', playVideo: "none", videoStatus: false, item: ''
+            }, caursl: [], tv: [], movies: [], all: [], roundom: [], popularTv: [], popularMovie: [], path: "tv", trailerbacgd: '', youtubeKey: '', playVideo: "none", videoStatus: false, item: '', caurslImgArr: [],
         }
     }
     componentDidMount() {
@@ -41,6 +41,9 @@ export default class Home extends Component {
         let { data } = await axios.get(`https://api.themoviedb.org/3/trending/${trendingType}/${time}?api_key=52bbcddeda849047525b51d6f8a12361`)
         this.setState({ [trendingType]: data.results });
         this.setState({ trailerbacgd: data.results[0].backdrop_path });
+        if (trendingType === 'all') {
+            data.results.slice(0, 10).map(item => this.state.caurslImgArr.push(`https://image.tmdb.org/t/p/original${item.backdrop_path}`))
+        }
     }
     getTrendingCarsul = async (trendingType, time) => {
         let { data } = await axios.get(`https://api.themoviedb.org/3/trending/${trendingType}/${time}?api_key=52bbcddeda849047525b51d6f8a12361`)
@@ -331,9 +334,8 @@ export default class Home extends Component {
                                     <button onClick={() => { this.setState({ item: value.title }); this.getYotubeVideo(value.media_type, value.id) }} key={index} className="btn w-100 p-0 m-0 overflow-hidden" onMouseEnter={() => { this.changeBG(value.backdrop_path) }} onTouchMove={() => { this.changeBG(value.backdrop_path) }}>
                                         <div className="w-100 p-0 m-0 rounded position-relative overflow-hidden">
                                             <div className={` position-relative d-flex justify-content-center align-items-center overflow-hidden ${HomeStyle.img_hover}`}>
-                                                <img className="w-100 h-100 rounded overflow-hidden" src="https:image.tmdb.org/t/p/original/mGVrXeIjyecj6TKmwPVpHlscEmw.jpg" alt="img" />
+                                                <img className="w-100 h-100 rounded overflow-hidden" src={this.state.caurslImgArr[index]} alt="img" />
                                                 <FaPlay className={`${HomeStyle.img_icon}`}></FaPlay>
-                                                {console.log(index + `https:image.tmdb.org/t/p/original${value.backdrop_path}`)}
                                             </div>
                                             <h6 className="text-white font-weight-bold">{value.title} {value.name}</h6>
                                         </div>
