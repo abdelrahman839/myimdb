@@ -24,11 +24,11 @@ export default class OneMovieTv extends Component {
         1000: {
           items: 4,
         },
-      }, simelar: [], check: 0, item: [], cast: [], type: '', youtubeKey: '', playVideo: "none", videoStatus: false
+      }, simelar: [], check: 0, item: [], cast: [], type: '', youtubeKey: '', playVideo: "none", videoStatus: false, bgImg: '', posterImg: '', 
     };
   }
   favourite = () => {
-    if (this.state.check == 0) {
+    if (this.state.check === 0) {
       this.state.check = 1;
       console.log(this.state.item);
       return this.state.item;
@@ -46,6 +46,7 @@ export default class OneMovieTv extends Component {
   getCast = async (type) => {
     let { data } = await axios.get(`https://api.themoviedb.org/3/${type}/${this.state.item[0].id}/credits?api_key=52bbcddeda849047525b51d6f8a12361`);
     this.setState({ cast: data.cast });
+    // this.state.cast.slice(0, 10).map(item => this.state.castImg.push(`https://image.tmdb.org/t/p/original${item.profile_path}`))
   }
   getSimilar = async () => {
     let { data } = await axios.get(`https://api.themoviedb.org/3/movie/${this.state.item[0].id}/similar?api_key=52bbcddeda849047525b51d6f8a12361`);
@@ -61,6 +62,8 @@ export default class OneMovieTv extends Component {
   render() {
     this.state.type = this.props.Type;
     this.state.item = this.props.MTV;
+    this.state.bgImg = `https://image.tmdb.org/t/p/original${this.state.item[0].backdrop_path}`
+    this.state.posterImg = `https://image.tmdb.org/t/p/original${this.state.item[0].poster_path}`
     return (
       <>
         <div className={`${ONEStyle.youtube_video}`} style={{ display: `${this.state.playVideo}` }}>
@@ -85,11 +88,11 @@ export default class OneMovieTv extends Component {
             value.title = value.name;
           }
           return (
-            <section key={index} className={`${ONEStyle.header} `} style={{ backgroundImage: `url(${'https:image.tmdb.org/t/p/original' + value.backdrop_path})`, backgroundSize: `cover`, backgroundPosition: `center center` }} >
+            <section key={index} className={`${ONEStyle.header} `} style={{ backgroundImage: `url(${this.state.bgImg})`, backgroundSize: `cover`, backgroundPosition: `center center` }} >
               <div className="layer justify-content-center">
                 <div className="row h-90 w-100 container d-flex justify-content-center align-items-center">
                   <div className="col-md-3 h-100 p-0  my-3 popular-img position-relative overflow-hidden trns-right  activee">
-                    <img className="w-100 h-100 rounded " src={'https:image.tmdb.org/t/p/original' + value.poster_path} />
+                    <img className="w-100 h-100 rounded " src={this.state.posterImg} />
                     <span className={`vote py-2`}>
                       <div className="position-relative d-flex justify-content-center align-items-center">
                         <FaStar id={value.id} name={this.state.path} className={`vote_icon`} />
@@ -128,13 +131,11 @@ export default class OneMovieTv extends Component {
                       this.props.cast(value);
                     }}>
                       <div className="w-100 h-100  chracter rounded-circle position-relative overflow-hidden bg-danger ">
-                        <img className="w-100 h-100 rounded-circle " src={'https:image.tmdb.org/t/p/original' + value.profile_path} />
+                        <img className="w-100 h-100 rounded-circle" src={`https://image.tmdb.org/t/p/original${value.profile_path}`} alt={value.name} />
                         <div className="chracter-caption text-white rounded-circle  w-100 h-100 text-center position-absolute d-flex justify-content-center align-items-center flex-column">
                           <h6>{value.name}</h6>
                           <p>{value.character}</p>
                         </div>
-
-
                       </div>
                     </button>
                   </NavLink>

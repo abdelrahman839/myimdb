@@ -390,14 +390,10 @@ export default class Home extends Component {
                             </div>
                         </div>
                         <OwlCarousel className='owl-theme vh-50' loop nav items="4" autoplay dotsContainer="false" navContainer="false" slideBy="4" responsive={this.state.responsive}>
-
-                            {this.state.caursl.map((value, index) => {
-                                if (value.title === undefined) {
-                                    value.title = value.name;
-                                }
+                            {this.state.caursl?.map((value, index) => {
                                 return (
                                     <NavLink to={`/details/${value.title}`} key={index} className="w-100 vh-50 ">
-
+                                        {value.title === undefined && (value.title = value.name)}
                                         <button onClick={() => { this.props.test(value); this.props.mediaType(value.media_type); this.props.getpath(value.title); }} className="bg-transparent border-0" >
                                             <div className="item position-relative">
                                                 <div className="popular-img position-relative overflow-hidden">
