@@ -67,12 +67,7 @@ export default class Home extends Component {
 
     }
     getYotubeVideo = async (type, id) => {
-        let { data } = await (await axios.get(`https://api.themoviedb.org/3/${type}/${id}/videos?api_key=52bbcddeda849047525b51d6f8a12361`)).headers({
-            'Access-Control-Allow-Credentials': true,
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET',
-            'Access-Control-Allow-Headers': 'application/json',
-        });
+        let { data } = await axios.get(`https://api.themoviedb.org/3/${type}/${id}/videos?api_key=52bbcddeda849047525b51d6f8a12361`);
         this.setState({ youtubeKey: data.results[0].key });
         this.setState({ playVideo: "flex" })
         this.setState({ videoStatus: true })
