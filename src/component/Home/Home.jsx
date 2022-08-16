@@ -438,8 +438,8 @@ export default class Home extends Component {
                                 <p className="text-muted">abdelrahmanabdallah9800@gmail.com</p>
                                 <div className=" d-flex justify-content-between align-items-center col-5  p-0">
                                     <a href="https://www.facebook.com/abdelrahman.elsherif.397?_rdc=1&_rdr" target="_blank" rel="noreferrer" ><FaFacebookF className={`text-muted ${HomeStyle.social}`} ></FaFacebookF></a>
-                                    <a href="https://www.linkedin.com/in/abdelrahman-abdallah-85b5481ab/" target="_blank" rel="noreferrer" ><FaLinkedinIn className={`text-muted ${HomeStyle.social}`}></FaLinkedinIn></a>
-                                    <a href="https://www.instagram.com/abdo_code/?hl=en" target="_blank" rel="noreferrer" ><FaInstagram className={`text-muted ${HomeStyle.social}`}></FaInstagram></a>
+                                    <a href="https://www.linkedin.com/in/abdelrahmanabdallah/" target="_blank" rel="noreferrer" ><FaLinkedinIn className={`text-muted ${HomeStyle.social}`}></FaLinkedinIn></a>
+                                    <a href="https://www.instagram.com/___c_o_d_e___/?hl=en" target="_blank" rel="noreferrer" ><FaInstagram className={`text-muted ${HomeStyle.social}`}></FaInstagram></a>
                                 </div>
                             </div>
                         </div>
